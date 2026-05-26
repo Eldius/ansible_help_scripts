@@ -1,5 +1,5 @@
 [project]
-name = "ansible-helper-scripts"
+name = "ansible-help-scripts"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -11,8 +11,8 @@ dependencies = [
 ]
 
 [project.scripts]
-ansible-hosts-fetch = "ansible_helper_scripts.hosts_fetch:main"
-ansible-generate-inventory = "ansible_helper_scripts.generate_inventory:main"
+ansible-hosts-fetch = "ansible_help_scripts.hosts_fetch:main"
+ansible-generate-inventory = "ansible_help_scripts.generate_inventory:main"
 
 [build-system]
 requires = ["hatchling"]
