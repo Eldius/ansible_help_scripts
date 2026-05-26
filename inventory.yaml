@@ -1,0 +1,10 @@
+all:
+  hosts:
+    192.168.0.192:
+      ansible_host: 192.168.0.192
+    rpi4host000:
+      ansible_host: 192.168.0.100
+    rpi5host000:
+      ansible_host: 192.168.0.153
+    rpi5host001:
+      ansible_host: 192.168.0.186

@@ -11,6 +11,7 @@ A collection of Python scripts designed to assist with Ansible-related tasks. Th
 
 ### Architecture
 - `hosts_fetch.py`: The main utility for host discovery. It calculates the subnet based on a base IP and scans it for a specified port (default 22).
+- `generate_inventory.py`: Generates an Ansible inventory YAML file by scanning the network and retrieving hostnames via SSH. It silently ignores authentication/permission errors, falling back to using the IP address as the host identifier.
 - `main.py`: A placeholder entry point.
 - `pyproject.toml`: Defines project metadata and dependencies.
 - `Makefile`: Provides convenient shortcuts for common tasks.
@@ -27,6 +28,14 @@ A collection of Python scripts designed to assist with Ansible-related tasks. Th
   make hosts
   # Or directly:
   uv run python hosts_fetch.py
+  ```
+- **Generate Ansible Inventory**:
+  ```bash
+  # Using Makefile (defaults to current user and 192.168.0.1)
+  make inventory
+  
+  # Using CLI for custom settings
+  uv run python generate_inventory.py -u myuser -b "10.0.0.1" -k ~/.ssh/id_rsa -o my_inventory.yaml
   ```
 - **Scan specific subnet (e.g., 10.147.20.0/24)**:
   ```bash
@@ -47,8 +56,23 @@ A collection of Python scripts designed to assist with Ansible-related tasks. Th
 - **Dependency Management**: Add new dependencies via `uv add <package>`.
 
 ### Testing
-- No formal testing suite (e.g., pytest) is currently implemented. TODO: Add unit tests for subnet calculation and host filtering logic.
+- Comprehensive test suite implemented using `pytest` and `pytest-asyncio`, covering host discovery, SSH connectivity, and inventory generation.
 
 ### Documentation
 - Keep the `README.md` updated with high-level user instructions.
 - Use `GEMINI.md` (this file) for AI-specific context and development-related mandates.
+
+## Testing
+
+### Running Tests
+The project uses `pytest` and `pytest-asyncio` for testing.
+```bash
+make test
+# Or directly:
+PYTHONPATH=. uv run pytest
+```
+
+### Testing Strategy
+- **Mocks**: Network operations and SSH connections are mocked using `unittest.mock`.
+- **Asyncio**: `pytest-asyncio` is used to test asynchronous functions.
+- **Inventory Validation**: Tests verify that the generated YAML structure is correct for Ansible.
