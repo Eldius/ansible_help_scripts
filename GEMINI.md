@@ -10,10 +10,11 @@ A collection of Python scripts designed to assist with Ansible-related tasks. Th
 - **asyncio**: Powers the non-blocking network operations.
 
 ### Architecture
-- `hosts_fetch.py`: The main utility for host discovery. It calculates the subnet based on a base IP and scans it for a specified port (default 22).
-- `generate_inventory.py`: Generates an Ansible inventory YAML file by scanning the network and retrieving hostnames via SSH. It silently ignores authentication/permission errors, falling back to using the IP address as the host identifier.
-- `main.py`: A placeholder entry point.
-- `pyproject.toml`: Defines project metadata and dependencies.
+- `src/ansible_helper_scripts/`: The main package directory.
+  - `hosts_fetch.py`: The utility for host discovery.
+  - `generate_inventory.py`: Generates an Ansible inventory YAML file.
+  - `main.py`: Entry point.
+- `pyproject.toml`: Defines project metadata, dependencies, and CLI entry points.
 - `Makefile`: Provides convenient shortcuts for common tasks.
 
 ## Building and Running
@@ -26,8 +27,8 @@ A collection of Python scripts designed to assist with Ansible-related tasks. Th
 - **Scan default subnet (192.168.0.0/24)**:
   ```bash
   make hosts
-  # Or directly:
-  uv run python hosts_fetch.py
+  # Or via CLI:
+  uv run ansible-hosts-fetch
   ```
 - **Generate Ansible Inventory**:
   ```bash
@@ -35,17 +36,17 @@ A collection of Python scripts designed to assist with Ansible-related tasks. Th
   make inventory
   
   # Using CLI for custom settings
-  uv run python generate_inventory.py -u myuser -b "10.0.0.1" -k ~/.ssh/id_rsa -o my_inventory.yaml
+  uv run ansible-generate-inventory -u myuser -b "10.0.0.1" -k ~/.ssh/id_rsa -o my_inventory.yaml
   ```
 - **Scan specific subnet (e.g., 10.147.20.0/24)**:
   ```bash
   make hosts2
-  # Or with custom base IP:
-  uv run python hosts_fetch.py -b "10.147.20.1"
+  # Or via CLI:
+  uv run ansible-hosts-fetch -b "10.147.20.1"
   ```
 - **Custom Port/Timeout**:
   ```bash
-  uv run python hosts_fetch.py --port 2222 --timeout 2.0
+  uv run ansible-hosts-fetch --port 2222 --timeout 2.0
   ```
 
 ## Development Conventions

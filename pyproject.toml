@@ -10,6 +10,10 @@ dependencies = [
     "pyyaml>=6.0.3",
 ]
 
+[project.scripts]
+ansible-hosts-fetch = "ansible_helper_scripts.hosts_fetch:main"
+ansible-generate-inventory = "ansible_helper_scripts.generate_inventory:main"
+
 [dependency-groups]
 dev = [
     "pytest>=9.0.3",
