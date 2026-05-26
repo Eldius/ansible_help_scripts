@@ -5,7 +5,7 @@ import pytest
 import asyncssh
 from ipaddress import IPv4Address
 from unittest.mock import AsyncMock, patch, MagicMock
-from ansible_helper_scripts.generate_inventory import get_hostname, generate_inventory
+from ansible_help_scripts.generate_inventory import get_hostname, generate_inventory
 
 @pytest.mark.asyncio
 async def test_get_hostname_success():
@@ -50,8 +50,8 @@ async def test_generate_inventory_full_flow(tmp_path):
             return host, "host10"
         return host, None
 
-    with patch("ansible_helper_scripts.generate_inventory.get_hosts", AsyncMock(return_value=mock_discovered)), \
-         patch("ansible_helper_scripts.generate_inventory.get_hostname", side_effect=mock_get_hostname):
+    with patch("ansible_help_scripts.generate_inventory.get_hosts", AsyncMock(return_value=mock_discovered)), \
+         patch("ansible_help_scripts.generate_inventory.get_hostname", side_effect=mock_get_hostname):
         
         await generate_inventory(
             baseip="192.168.0.1",

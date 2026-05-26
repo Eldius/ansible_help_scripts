@@ -53,10 +53,12 @@ uv run ansible-generate-inventory -u myuser -b 10.0.0.1 -k ~/.ssh/id_rsa -o prod
 You can also import and use the discovery or inventory logic in your own Python scripts.
 
 ### Import Discovery Logic
+
 ```python
 import asyncio
-from ansible_helper_scripts.hosts_fetch import get_hosts
+from ansible_help_scripts.hosts_fetch import get_hosts
 from ipaddress import IPv4Network
+
 
 async def find_my_servers():
     network = IPv4Network("192.168.1.0/24")
@@ -64,13 +66,16 @@ async def find_my_servers():
     for host, service in hosts:
         print(f"Found {host}")
 
+
 asyncio.run(find_my_servers())
 ```
 
 ### Import Inventory Logic
+
 ```python
 import asyncio
-from ansible_helper_scripts.generate_inventory import generate_inventory
+from ansible_help_scripts.generate_inventory import generate_inventory
+
 
 async def build_inventory():
     await generate_inventory(
@@ -80,6 +85,7 @@ async def build_inventory():
         user="admin",
         output_file="dynamic_inventory.yaml"
     )
+
 
 asyncio.run(build_inventory())
 ```
